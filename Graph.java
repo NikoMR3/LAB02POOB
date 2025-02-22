@@ -4,16 +4,24 @@ import java.util.Arrays;
 public class Graph {
     private String[] vertices;
     private String[][] matriz;
-    private int edges = 0;
+    private ArrayList<String[]> edges;
     
-    public Graph(String[] vertices, String[][] edges){
-        this.vertices = vertices;
+    public Graph(String[] vertice, String[][] edges){
+        ArrayList lista = new ArrayList<>();
+        
         this.matriz = new String[vertices.length][vertices.length];
         
+        for(int i = 0;i<vertice.length;i++){
+            if (lista.contains(vertice[i]) == false){
+                lista.add(vertice[i]);
+            }
+        }
+        
+        this.vertices = lista.toArray(new String[lista.size()]);
         
         for(int i = 0; i<vertices.length;i++){
             Arrays.fill(matriz[i],"0");
-        };
+        }
         
         
         for(int i = 0;i<edges.length;i++){
@@ -50,10 +58,10 @@ public class Graph {
         
         if (this.matriz[componenteXIndex][componenteYIndex] == "0"){
             this.matriz[componenteXIndex][componenteYIndex] = "1";
-            this.edges = this.edges + 1;
+            
         }
         
-        
+        this.edges.add(new String[]{start,end});
         return null;
     }
     
@@ -69,7 +77,7 @@ public class Graph {
     
    
     public int edges(){
-        return this.edges;
+        return 0;
     }    
     
     
