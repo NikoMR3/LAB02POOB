@@ -4,14 +4,17 @@ import java.util.Arrays;
 public class Graph {
     private String[] vertices;
     private String[][] matriz;
+    private int edges = 0;
     
     public Graph(String[] vertices, String[][] edges){
         this.vertices = vertices;
         this.matriz = new String[vertices.length][vertices.length];
         
+        
         for(int i = 0; i<vertices.length;i++){
             Arrays.fill(matriz[i],"0");
         };
+        
         
         for(int i = 0;i<edges.length;i++){
             String componentX = edges[i][0];
@@ -47,7 +50,10 @@ public class Graph {
         
         if (this.matriz[componenteXIndex][componenteYIndex] == "0"){
             this.matriz[componenteXIndex][componenteYIndex] = "1";
+            this.edges = this.edges + 1;
         }
+        
+        
         return null;
     }
     
@@ -63,7 +69,7 @@ public class Graph {
     
    
     public int edges(){
-        return 0;
+        return this.edges;
     }    
     
     
@@ -105,14 +111,15 @@ public class Graph {
 
     public static void main() {
         // Definir nodos
-        String[] nombresNodos = {"A", "B", "C", "D"};
-        String[][] arcos = {{"A","B"},{"B","C"},{"C","D"},{"D","A"}};
+        String[] nombresNodos = {"DDYA","MYSD","DOPO"};
+        String[][] arcos = {{"DDYA","MYSD"},{"DDYA","DOPO"}};
 
         // Crear el grafo
         Graph grafo = new Graph(nombresNodos,arcos);
+        System.out.print(grafo.vertices()+"\n");
+        System.out.print(grafo.edges());
         grafo.mostrarMatriz();
         
-
 
         
 
