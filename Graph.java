@@ -13,12 +13,14 @@ public class Graph {
             Arrays.fill(matriz[i],"0");
         };
         
-        for(int i = 0;i<vertices.length;i++){
-            String componentX = this.matriz[i][0];
-            String componentY = this.matriz[i][1];
+        for(int i = 0;i<edges.length;i++){
+            String componentX = edges[i][0];
+            String componentY = edges[i][1];
+            System.out.print(componentX+"y"+componentY+"\n");
             path(componentX,componentY);
         }
-    
+        
+        
     }
     
 
@@ -30,6 +32,7 @@ public class Graph {
     private int getIndex(String[] array, String elemento){
         int indice = 0;
         indice = Arrays.asList(array).indexOf(elemento);
+        
         return indice;
     }
     
@@ -55,7 +58,7 @@ public class Graph {
     
     
     public int vertices(){
-        return 0;
+        return this.vertices.length;
     }
     
    
@@ -103,17 +106,17 @@ public class Graph {
     public static void main() {
         // Definir nodos
         String[] nombresNodos = {"A", "B", "C", "D"};
-        String[][] arcos = {{"aa","aa"}};
+        String[][] arcos = {{"A","B"},{"B","C"},{"C","D"},{"D","A"}};
 
         // Crear el grafo
         Graph grafo = new Graph(nombresNodos,arcos);
         grafo.mostrarMatriz();
-        grafo.path("A", "B");
+        
 
         
 
         // Mostrar matriz de adyacencia
-        grafo.mostrarMatriz();
+        
     }
     
 }
