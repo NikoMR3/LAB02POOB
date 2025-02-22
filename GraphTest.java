@@ -68,6 +68,26 @@ public class GraphTest{
         String [][] edgesB = {{"DDYA","Mysd"},{"ddya","dopo"},{"DDya","doPo"}}; 
         assertEquals(new Graph(verticesA,edgesA),new Graph(verticesB,edgesB));
     }    
+    @Test
+    public void shouldPass(){
+        String [] verticesA ={"DDYA","MYSD","DOPO"};
+        String [][] edgesA = {{"DDYA","MYSD"},{"DDYA","DOPO"}};
+        assertFalse(new Graph(verticesA,edgesA).contains("LCAT"));
+    }
+
+    @Test
+    public void shouldFail(){
+        String [] verticesA ={"DDYA","MYSD","DOPO"};
+        String [][] edgesA = {{"DDYA","MYSD"},{"DDYA","DOPO"}};
+        assertTrue(new Graph(verticesA,edgesA).contains("PRYE"));
+    }
+
+    @Test
+    public void shouldErr(){
+        String [] verticesA ={"DDYA","MYSD","DOPO"};
+        String [][] edgesA = {{"DDYA","MYSD"},{"DDYA","DOPO"}};
+        assertEquals(new Graph(verticesA,edgesA).vertices(),1/0);
+    }
 
 
     /**
