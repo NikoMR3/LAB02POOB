@@ -18,8 +18,7 @@ public class Graph {
             String componentY = this.matriz[i][1];
             path(componentX,componentY);
         }
-        
-        
+    
     }
     
 
