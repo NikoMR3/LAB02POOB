@@ -1,138 +1,113 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Graph {
-    private String[] vertices;
-    private String[][] matriz;
-    private ArrayList<String[]> edges;
     
-    public Graph(String[] vertice, String[][] edges){
-        ArrayList lista = new ArrayList<>();
+        private ArrayList<String> list_vertices;
+        private ArrayList<String[]> list_edges;
+    
+    public Graph(String[] vertices, String[][] edges){
         
-        this.matriz = new String[vertices.length][vertices.length];
+        list_vertices = new ArrayList<String>();  
+        list_edges = new ArrayList<String[]>();
         
-        for(int i = 0;i<vertice.length;i++){
-            if (lista.contains(vertice[i]) == false){
-                lista.add(vertice[i]);
-            }
-        }
+        for(String v : vertices){
+            addVertex(v);
+        };
         
-        this.vertices = lista.toArray(new String[lista.size()]);
-        
-        for(int i = 0; i<vertices.length;i++){
-            Arrays.fill(matriz[i],"0");
-        }
-        
-        
-        for(int i = 0;i<edges.length;i++){
-            String componentX = edges[i][0];
-            String componentY = edges[i][1];
-            System.out.print(componentX+"y"+componentY+"\n");
-            path(componentX,componentY);
-        }
-        
-        
+        for(String[] e : edges){
+            addEdge(e);
+        }; 
     }
     
-
+    public void addVertex(String vertex){
+        if (!contains(vertex)){
+            list_vertices.add(vertex.toUpperCase());
+        }
+    }
+    
     public boolean contains(String vertex){
-        
+        return list_vertices.contains(vertex.toUpperCase());
+    }
+    
+    public String[] upperEdge(String[] edge){
+        String vertex1 = edge[0].toUpperCase();
+        String vertex2 = edge[1].toUpperCase();
+        String[] upper = {vertex1,vertex2};
+        return upper;
+    }
+    
+    public void addEdge(String[] edge){
+        String[] edgeToAdd = upperEdge(edge);
+        if (!contains(edgeToAdd)){
+            list_edges.add(edgeToAdd);
+        }
+    }
+    
+    public boolean contains(String[] edge){
+        String [] revisionEdge = upperEdge(edge); 
+        for(String[] edgeElement : list_edges){
+            if (Arrays.equals(revisionEdge,edgeElement)){
+                return true;
+            }
+        }
         return false;
     }
     
-    private int getIndex(String[] array, String elemento){
-        int indice = 0;
-        indice = Arrays.asList(array).indexOf(elemento);
-        
-        return indice;
-    }
-    
-    
-    /**
-     * Conectar vertices
-     */
     public Graph path(String start, String end){
         
-        int componenteXIndex = getIndex(this.vertices,start);
-        int componenteYIndex = getIndex(this.vertices,end);
-        
-        if (this.matriz[componenteXIndex][componenteYIndex] == "0"){
-            this.matriz[componenteXIndex][componenteYIndex] = "1";
-            
-        }
-        
-        this.edges.add(new String[]{start,end});
         return null;
     }
-    
 
     public Graph union (Graph g){
-        return null;
+        for(String v : g.list_vertices){
+            addVertex(v);
+        } 
+        for(String[] e : g.list_edges){
+            addEdge(e);
+        } 
+        return this;
     }
-    
+
     
     public int vertices(){
-        return this.vertices.length;
+        return list_vertices.size();
     }
     
-   
     public int edges(){
-        return 0;
+        return list_edges.size();
     }    
     
     
     public boolean equals(Graph g){
-        return false;
+        return true;
     }
     
     public boolean equals(Object g){
         return equals((Graph)g);
     }
     
+    public void alphabetize(){
+        Collections.sort(list_edges, new Comparator<String[]>() {
+            @Override
+            public int compare(String[] a, String[] b) {
+                return Character.compare(a[0].charAt(0), b[0].charAt(0));
+            }
+        });
+    }
+    
     //Only arcs in space-separated tuples. The vertices are capitalized. The edges must always be in alphabetical order.
     //For example, (A, B) (C, D) 
-    public String toString(String[] tupla) {
-        String primerComponente = "";
-        String segundoComponente = "";
-        primerComponente = tupla[0];
-        segundoComponente = tupla[1];
-        System.out.print(primerComponente);
-        System.out.print(segundoComponente);
-        
-        
-        
-      return "";
+    public String toString() {
+        alphabetize();
+        String tuple;
+        tuple = "";
+        for (String[] e: list_edges) {
+            tuple += "("+e[0]+","+e[1]+")";
+            }
+         return tuple;
     }
-    
-    
-    /**
-         * Clase MAIN (OPCIONAL)
-         * 
-    */
-
-    public void mostrarMatriz() {
-        System.out.print("  " + Arrays.toString(vertices) + "\n");
-        for (int i = 0; i < matriz.length; i++) {
-            System.out.print(vertices[i] + " " + Arrays.toString(matriz[i]) + "\n");
-        }
-    }
-
-    public static void main() {
-        // Definir nodos
-        String[] nombresNodos = {"DDYA","MYSD","DOPO"};
-        String[][] arcos = {{"DDYA","MYSD"},{"DDYA","DOPO"}};
-
-        // Crear el grafo
-        Graph grafo = new Graph(nombresNodos,arcos);
-        System.out.print(grafo.vertices()+"\n");
-        System.out.print(grafo.edges());
-        grafo.mostrarMatriz();
-        
-
-        
-
-        // Mostrar matriz de adyacencia
-        
-    }
-    
+       
 }
