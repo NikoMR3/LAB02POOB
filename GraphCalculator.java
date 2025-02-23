@@ -12,21 +12,22 @@ public class GraphCalculator{
     
     
     public GraphCalculator(){
+        variables = new TreeMap<String,Graph>();
+        claves = new ArrayList<String>();
     }
 
     //Create a new variable
     public void create(String nombre){
-        this.claves.add(nombre);
+        claves.add(nombre);
     }
      
     //Assign a graph to an existing variable
     //a := graph
     public void assign(String graph, String[] vertices, String [][] edges ){
-        
-        assert this.claves.contains(graph);
-        Graph grafo = new Graph(vertices,edges);
-        this.variables.put(graph,grafo);
-        
+        if(claves.contains(graph)){
+            Graph grafo = new Graph(vertices,edges);
+            variables.put(graph,grafo);
+        }
     }    
     
     
@@ -58,8 +59,6 @@ public class GraphCalculator{
     }
 }
     
-
-
 
 
 
