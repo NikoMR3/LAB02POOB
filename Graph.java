@@ -82,7 +82,24 @@ public class Graph {
     
     
     public boolean equals(Graph g){
-        return true;
+        alphabetize();
+        g.alphabetize();
+        boolean condicion2;
+        
+        if (list_edges.size() != g.list_edges.size()) {
+            return false; 
+        }
+        for (int i = 0; i < edges(); i++) {
+            if (!Arrays.equals(list_edges.get(i), g.list_edges.get(i))){
+                return false;
+            }  
+        }
+        
+        Collections.sort(list_vertices);
+        Collections.sort(g.list_vertices); 
+        condicion2 = list_vertices.equals(g.list_vertices);
+        
+        return condicion2;
     }
     
     public boolean equals(Object g){
