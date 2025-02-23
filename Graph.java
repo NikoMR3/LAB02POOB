@@ -57,7 +57,10 @@ public class Graph {
     }
     
     public Graph path(String start, String end){
-        
+        String[] camino = {start,end};
+        if(this.list_edges.contains(camino) == false){
+            this.list_edges.add(camino);
+        }
         return null;
     }
 
