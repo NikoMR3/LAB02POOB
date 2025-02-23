@@ -88,26 +88,38 @@ public class Graph {
     public boolean equals(Object g){
         return equals((Graph)g);
     }
-    
-    public void alphabetize(){
-        Collections.sort(list_edges, new Comparator<String[]>() {
+
+    public void alphabetize(){ 
+        ArrayList<String[]> sortedEdges = new ArrayList<>();
+        for (String[] edge : list_edges) {
+            String[] edgeCopy = {edge[0], edge[1]};
+            sortedEdges.add(edgeCopy);
+        }
+        Collections.sort(sortedEdges, new Comparator<String[]>(){
             @Override
             public int compare(String[] a, String[] b) {
-                return Character.compare(a[0].charAt(0), b[0].charAt(0));
-            }
+                // Comparar primer vértice
+                int cmp = a[0].compareTo(b[0]);
+                if (cmp != 0) return cmp;
+                return a[1].compareTo(b[1]);
+                } 
         });
+        list_edges = sortedEdges;
     }
     
     //Only arcs in space-separated tuples. The vertices are capitalized. The edges must always be in alphabetical order.
     //For example, (A, B) (C, D) 
     public String toString() {
         alphabetize();
-        String tuple;
-        tuple = "";
-        for (String[] e: list_edges) {
-            tuple += "("+e[0]+","+e[1]+")";
-            }
-         return tuple;
+        StringBuilder sb = new StringBuilder();
+        for (String[] edge : list_edges) {
+            sb.append("(")
+            .append(edge[0])  
+            .append(", ")
+            .append(edge[1])  
+            .append(") ");
+        }
+        return sb.length() > 0 ? sb.toString().trim() : "";
     }
-       
+         
 }
