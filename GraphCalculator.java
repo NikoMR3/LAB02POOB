@@ -1,5 +1,5 @@
 import java.util.TreeMap;
-
+import java.util.ArrayList;
 /** GraphCalculator.java
  * 
  * @author ESCUELA 2025-01
@@ -8,17 +8,25 @@ import java.util.TreeMap;
 public class GraphCalculator{
     
     private TreeMap<String,Graph> variables;
+    private ArrayList<String> claves;
+    
     
     public GraphCalculator(){
     }
 
     //Create a new variable
     public void create(String nombre){
+        this.claves.add(nombre);
     }
      
     //Assign a graph to an existing variable
     //a := graph
     public void assign(String graph, String[] vertices, String [][] edges ){
+        
+        assert this.claves.contains(graph);
+        Graph grafo = new Graph(vertices,edges);
+        this.variables.put(graph,grafo);
+        
     }    
     
     
@@ -50,6 +58,8 @@ public class GraphCalculator{
     }
 }
     
+
+
 
 
 
